@@ -10,7 +10,7 @@
 
 #### POST /messages
 > Отправить сообщение в виде объекта:
-```{
+{
     author: String,
     message: String
 }
