@@ -6,11 +6,11 @@
     date: String (datetime ISOString),
     author: String,
     message: String
-}]```
+}]
 
 #### POST /messages
 > Отправить сообщение в виде объекта:
 ```{
     author: String,
     message: String
-}```
+}
