@@ -3,11 +3,13 @@ import {
   FETCH_ERROR,
   FETCH_SUCCESS,
   POST_DATA,
+  FORM_ERROR,
 } from "./actionTypes";
 const initialState = {
   messages: [],
   loading: false,
   error: null,
+  formError: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -19,7 +21,9 @@ const reducer = (state = initialState, action) => {
     case FETCH_SUCCESS:
       return { ...state, messages: action.data, loading: false };
     case POST_DATA:
-      return { ...state, loading: false };
+      return { ...state, loading: false, formError: null };
+    case FORM_ERROR:
+      return { ...state, formError: action.error };
     default:
       return state;
   }

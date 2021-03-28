@@ -3,6 +3,7 @@ import {
   FETCH_DATA,
   FETCH_ERROR,
   FETCH_SUCCESS,
+  FORM_ERROR,
   POST_DATA,
 } from "./actionTypes";
 
@@ -17,6 +18,9 @@ const fetchSuccess = (data) => {
 };
 const postData = () => {
   return { type: POST_DATA };
+};
+const formError = (error) => {
+  return { type: FORM_ERROR, error };
 };
 
 export const fetchRequest = () => {
@@ -40,5 +44,10 @@ export const sendRequest = (data) => {
     } catch (e) {
       dispatch(fetchError(e));
     }
+  };
+};
+export const formErr = (error) => {
+  return async (dispatch) => {
+    dispatch(formError(error));
   };
 };

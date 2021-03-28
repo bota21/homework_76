@@ -5,7 +5,7 @@ import Form from "../../components/Form/Form";
 import Messages from "../../components/Messages/Messages";
 import WindowError from "../../components/UI/WindowError";
 import Spinner from "../../components/UI/Spinner";
-import { fetchRequest, sendRequest } from "../../store/actions";
+import { fetchRequest, sendRequest, formErr } from "../../store/actions";
 import "./Main.css";
 
 const useStyle = makeStyles({
@@ -20,6 +20,7 @@ const Main = () => {
   const messages = useSelector((state) => state.messages);
   const loading = useSelector((state) => state.loading);
   const error = useSelector((state) => state.error);
+  const formError = useSelector((state) => state.formError);
   
   useEffect(() => {
     dispatch(fetchRequest());
@@ -46,6 +47,8 @@ const Main = () => {
         author: "",
         message: "",
       });
+    } else {
+      dispatch(formErr("Not entered author or message"));
     }
   };
 
@@ -59,6 +62,7 @@ const Main = () => {
         valueMessage={formData.message}
       />
       {error ? <WindowError>{error && error.message}</WindowError> : null}
+      {formError ? <WindowError>{formError}</WindowError> : null}
       <Messages messages={messages} />
     </Grid>
   );
