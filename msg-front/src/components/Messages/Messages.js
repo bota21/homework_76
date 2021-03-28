@@ -28,7 +28,7 @@ const Messages = ({ messages }) => {
   const classes = useStyles();
 
   const localeDate = (date) => {
-    const newDate = new Date(date).toLocaleDateString();
+    const newDate = new Date(date).toLocaleDateString('en-GB');
     return newDate;
   };
   const localeTime = (date) => {

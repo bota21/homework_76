@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "../../components/Form/Form";
 import Messages from "../../components/Messages/Messages";
+import WindowError from "../../components/UI/WindowError";
+import Spinner from "../../components/UI/Spinner";
 import { fetchRequest, sendRequest } from "../../store/actions";
 import "./Main.css";
 
@@ -16,7 +18,9 @@ const Main = () => {
   const classes = useStyle();
   const dispatch = useDispatch();
   const messages = useSelector((state) => state.messages);
-  
+  const loading = useSelector((state) => state.loading);
+  const error = useSelector((state) => state.error);
+console.log(messages);
   useEffect(() => {
     dispatch(fetchRequest());
   }, [dispatch]);
@@ -35,22 +39,26 @@ const Main = () => {
 
   const submitForm = (e) => {
     e.preventDefault();
-    dispatch(sendRequest(formData));
-    dispatch(fetchRequest());
-    setFormdata({
-      author: "",
-      message: "",
-    });
+    if (formData.author !== "" && formData.message !== "") {
+      dispatch(sendRequest(formData));
+      dispatch(fetchRequest());
+      setFormdata({
+        author: "",
+        message: "",
+      });
+    }
   };
 
   return (
     <Grid container className={classes.main}>
+      {loading ? <Spinner /> : null}
       <Form
         submit={submitForm}
         change={changeValueHandler}
         valueAuthor={formData.author}
         valueMessage={formData.message}
       />
+      {error ? <WindowError>{error && error.message}</WindowError> : null}
       <Messages messages={messages} />
     </Grid>
   );

@@ -16,7 +16,7 @@ const fetchSuccess = (data) => {
   return { type: FETCH_SUCCESS, data };
 };
 const postData = () => {
-  return { ytpe: POST_DATA };
+  return { type: POST_DATA };
 };
 
 export const fetchRequest = () => {
@@ -24,7 +24,7 @@ export const fetchRequest = () => {
     try {
       dispatch(fetchData());
       const response = await axios.get("/messages");
-      dispatch(fetchSuccess(response.data));
+      dispatch(fetchSuccess(response.data.slice(-15)));
     } catch (e) {
       dispatch(fetchError(e));
     }
