@@ -20,7 +20,7 @@ const Main = () => {
   const messages = useSelector((state) => state.messages);
   const loading = useSelector((state) => state.loading);
   const error = useSelector((state) => state.error);
-console.log(messages);
+  
   useEffect(() => {
     dispatch(fetchRequest());
   }, [dispatch]);
